@@ -8,7 +8,7 @@ public class Helper {
         while (true) {
             s = JOptionPane.showInputDialog(message);
             if (s.trim().length() == 0) {
-                JOptionPane.showConfirmDialog(null, "required field");
+                JOptionPane.showConfirmDialog(null, "Required field");
                 continue;
             }
             return s;
