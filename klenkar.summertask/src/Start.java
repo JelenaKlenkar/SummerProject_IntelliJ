@@ -103,14 +103,12 @@ public class Start {
                 System.out.println("Motivational letter: " + rs.getString("motivationalLetter"));
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         a = setValues(a);
         try {
-            PreparedStatement expressionUpdate = connection.prepareStatement("update applicant set firstName=?" +
-                    "lastName=?,address=?,phoneNumber=?,email=?,personalIdentificationNumber=?,applicantCV=?,motivationalLetter=?" +
-                    "where id ='" + id + "';");
+            PreparedStatement expressionUpdate = connection.prepareStatement("update applicant set firstName=?,lastName=?,address=?,phoneNumber=?,email=?,personalIdentificationNumber=?,applicantCV=?,motivationalLetter=? where id ='" + id + "';");
             expressionUpdate.setString(1, a.getFirstName());
             expressionUpdate.setString(2, a.getLastName());
             expressionUpdate.setString(3, a.getAddress());
@@ -119,6 +117,7 @@ public class Start {
             expressionUpdate.setInt(6, a.getPersonalIdentificationNumber());
             expressionUpdate.setString(7, a.getApplicantCv());
             expressionUpdate.setString(8, a.getMotivationalLetter());
+            expressionUpdate.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -140,12 +139,12 @@ public class Start {
         connection = ConnectToDatabase.getConnection();
         Applicant a = new Applicant();
         a = setValues(a);
-        String sql = "INSERT INTO APPLICANT"
+        String sql = "INSERT INTO applicant"
                 + "(id,firstName,lastName, address,phoneNumber,email,personalIdentificationNumber,applicantCV,motivationalLetter)"
-                + "VALUES(?,?,?,?,?,?,?,?)";
+                + "VALUES(?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement expression = connection.prepareStatement(sql);
-            expression.setNull(1, Types.INTEGER);
+            expression.setNull(1, java.sql.Types.INTEGER);
             expression.setString(2, a.getFirstName());
             expression.setString(3, a.getLastName());
             expression.setString(4, a.getAddress());
@@ -154,6 +153,7 @@ public class Start {
             expression.setInt(7, a.getPersonalIdentificationNumber());
             expression.setString(8, a.getApplicantCv());
             expression.setString(9, a.getMotivationalLetter());
+            expression.executeUpdate();
 
 
         } catch (Exception e) {
